@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Cumpleaños Isamar ✨</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Poppins:wght@300;400;600;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #05020a;
+      --purple: #8b2cff;
+      --red: #ff2e4d;
+      --gold: #ffd166;
+      --cyan: #35d6ff;
+      --soft: #f8eaff;
+      --card: rgba(11, 6, 24, 0.78);
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--soft);
+      background:
+        radial-gradient(circle at 15% 12%, rgba(139,44,255,.42), transparent 30%),
+        radial-gradient(circle at 90% 12%, rgba(255,46,77,.28), transparent 26%),
+        radial-gradient(circle at 80% 82%, rgba(53,214,255,.24), transparent 28%),
+        linear-gradient(135deg, #040207, #10041f 52%, #05020a);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 80%);
+      z-index: 0;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .12;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    .energy-ring {
+      position: fixed;
+      width: 620px;
+      height: 620px;
+      border: 2px solid rgba(255,255,255,.08);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow:
+        0 0 80px rgba(139,44,255,.26),
+        inset 0 0 80px rgba(53,214,255,.14);
+      z-index: 0;
+      animation: breathe 5s ease-in-out infinite;
+    }
+
+    .energy-ring::before,
+    .energy-ring::after {
+      content: "";
+      position: absolute;
+      inset: 42px;
+      border: 1px dashed rgba(255,209,102,.35);
+      border-radius: 50%;
+      animation: spin 30s linear infinite;
+    }
+
+    .energy-ring::after {
+      inset: 112px;
+      border-color: rgba(255,46,77,.28);
+      animation-direction: reverse;
+      animation-duration: 20s;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes breathe {
+      0%,100% { opacity: .65; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 34px 16px;
+    }
+
+    .poster {
+      width: min(1120px, 100%);
+      min-height: 680px;
+      border-radius: 34px;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow:
+        0 0 38px rgba(139,44,255,.48),
+        0 0 80px rgba(255,46,77,.16),
+        inset 0 0 42px rgba(255,255,255,.04);
+      position: relative;
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, transparent 0 35%, rgba(255,255,255,.08) 36%, transparent 37% 100%),
+        radial-gradient(circle at 72% 30%, rgba(255,46,77,.20), transparent 28%);
+      pointer-events: none;
+    }
+
+    .poster-header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 22px 28px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(90deg, rgba(139,44,255,.20), rgba(255,46,77,.10));
+    }
+
+    .seal-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      font-size: 12px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .poster-body {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 34px;
+      padding: 48px;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      text-shadow: 0 0 16px rgba(53,214,255,.8);
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(46px, 8vw, 96px);
+      line-height: .96;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #fff;
+      text-shadow:
+        4px 4px 0 rgba(255,46,77,.50),
+        0 0 28px rgba(139,44,255,.9);
+    }
+
+    h1 span {
+      display: block;
+      color: var(--gold);
+      text-shadow:
+        4px 4px 0 rgba(139,44,255,.52),
+        0 0 28px rgba(255,209,102,.75);
+    }
+
+    .main-message {
+      margin-top: 26px;
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.75;
+      color: #f7efff;
+    }
+
+    .main-message strong {
+      color: var(--gold);
+    }
+
+    .philosophy-box {
+      margin-top: 28px;
+      padding: 22px;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
+        radial-gradient(circle at top right, rgba(255,209,102,.16), transparent 38%);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 0 28px rgba(53,214,255,.10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .philosophy-box::before {
+      content: "❝";
+      position: absolute;
+      right: 18px;
+      top: -18px;
+      font-size: 96px;
+      line-height: 1;
+      color: rgba(255,209,102,.18);
+      font-family: Georgia, serif;
+    }
+
+    .philosophy-title {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      font-weight: 900;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .quote-text {
+      min-height: 88px;
+      font-size: 18px;
+      line-height: 1.65;
+      color: #fff;
+      transition: opacity .25s ease;
+    }
+
+    .controls {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      color: #08020f;
+      background: linear-gradient(90deg, var(--gold), #ff8ad8);
+      box-shadow: 0 0 22px rgba(255,209,102,.32);
+      transition: transform .2s ease, filter .2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.03);
+      filter: brightness(1.08);
+    }
+
+    button.alt {
+      color: #fff;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+    }
+
+    .right-panel {
+      min-height: 520px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .circle-stage {
+      width: min(420px, 82vw);
+      height: min(420px, 82vw);
+      border-radius: 50%;
+      position: relative;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 38% 30%, rgba(255,255,255,.18), transparent 20%),
+        radial-gradient(circle, rgba(139,44,255,.35), rgba(255,46,77,.16) 42%, transparent 68%);
+      box-shadow:
+        0 0 50px rgba(139,44,255,.52),
+        inset 0 0 38px rgba(255,255,255,.08);
+      animation: float 4.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .circle-stage::before {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      border: 2px dashed rgba(255,209,102,.45);
+      animation: spin 24s linear infinite;
+    }
+
+    .symbol {
+      position: absolute;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      color: rgba(255,255,255,.88);
+      text-shadow: 0 0 16px rgba(255,255,255,.45);
+    }
+
+    .symbol.one { top: 32px; left: 50%; transform: translateX(-50%); font-size: 34px; color: var(--gold); }
+    .symbol.two { left: 35px; top: 50%; transform: translateY(-50%); font-size: 30px; color: var(--cyan); }
+    .symbol.three { right: 35px; top: 50%; transform: translateY(-50%); font-size: 30px; color: var(--red); }
+    .symbol.four { bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 34px; color: var(--gold); }
+
+    .cake-card {
+      width: 250px;
+      min-height: 250px;
+      border-radius: 30px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+      background: rgba(0,0,0,.38);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: inset 0 0 26px rgba(255,255,255,.05);
+      z-index: 2;
+    }
+
+    .cake-emoji {
+      font-size: 84px;
+      filter: drop-shadow(0 0 18px rgba(255,209,102,.65));
+      animation: pop 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pop {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.08) rotate(-2deg); }
+    }
+
+    .cake-card p {
+      margin-top: 16px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    .mini-quotes {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      transform: translateY(8px);
+    }
+
+    .mini {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      font-size: 13px;
+      line-height: 1.45;
+      color: #eadfff;
+    }
+
+    .mini strong {
+      display: block;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+
+    .footer {
+      position: relative;
+      padding: 22px 28px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      text-align: center;
+      color: #ddd0ff;
+      font-weight: 700;
+      background: rgba(0,0,0,.20);
+    }
+
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      width: 10px;
+      height: 16px;
+      border-radius: 4px;
+      background: var(--gold);
+      box-shadow: 0 0 14px currentColor;
+      animation: crazyFall 2.8s ease-out forwards;
+      z-index: 99;
+    }
+
+    .emoji-party {
+      position: fixed;
+      pointer-events: none;
+      font-size: clamp(24px, 4vw, 46px);
+      z-index: 100;
+      animation: emojiBounce 3.2s ease-in-out forwards;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,.45));
+    }
+
+    @keyframes crazyFall {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 1;
+      }
+      45% {
+        transform: translate(calc(var(--x) * .55), calc(var(--y) * .55)) rotate(360deg) scale(1.25);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) rotate(900deg) scale(.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes emojiBounce {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(.7);
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+        transform: translate(0, -30px) rotate(-10deg) scale(1.1);
+      }
+      55% {
+        transform: translate(var(--x), calc(var(--y) * .55)) rotate(18deg) scale(1.2);
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) rotate(-25deg) scale(.4);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .poster-body {
+        grid-template-columns: 1fr;
+        padding: 34px 22px;
+        text-align: center;
+      }
+
+      .controls {
+        justify-content: center;
+      }
+
+      .right-panel {
+        min-height: 500px;
+      }
+
+      .mini-quotes {
+        position: relative;
+        grid-template-columns: 1fr;
+        margin-top: 22px;
+      }
+
+      .poster-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="energy-ring"></div>
+  <div class="noise"></div>
+
+  <main class="page">
+    <section class="poster">
+      <header class="poster-header">
+        <div class="seal-label">✦ Celebración especial</div>
+        <div class="seal-label">🎂 Para Isamar</div>
+        <div class="seal-label">☾ Nueva temporada</div>
+      </header>
+
+      <div class="poster-body">
+        <section>
+          <p class="eyebrow">Un día para brillar</p>
+          <h1>Feliz<br><span>Cumpleaños</span></h1>
+
+          <p class="main-message">
+            <strong>Isamar</strong>, hoy comienza una nueva vuelta al sol: otra oportunidad para crecer,
+            sonreír, aprender y seguir convirtiendo cada experiencia en fuerza. Que este cumpleaños
+            te recuerde lo valiosa que eres y todo lo bonito que todavía viene para ti. 🥳✨
+          </p>
+
+          <div class="philosophy-box">
+            <p class="philosophy-title">Frase filosófica del día</p>
+            <p id="quote" class="quote-text">
+              La vida no se mide solo por los años que pasan, sino por la luz que dejamos en las personas que nos rodean.
+            </p>
+          </div>
+
+          <div class="controls">
+            <button onclick="cambiarFrase()">Cambiar frase ✨</button>
+            <button class="alt" onclick="celebrar(event)">Celebrar ahora 🎉</button>
+          </div>
+        </section>
+
+        <aside class="right-panel">
+          <div class="circle-stage">
+            <span class="symbol one">夢</span>
+            <span class="symbol two">光</span>
+            <span class="symbol three">力</span>
+            <span class="symbol four">心</span>
+
+            <div class="cake-card">
+              <div class="cake-emoji">🎂</div>
+              <p>Que tus deseos se conviertan en camino, y tu camino en una historia hermosa.</p>
+            </div>
+          </div>
+
+          <div class="mini-quotes">
+            <div class="mini"><strong>Propósito</strong>Camina con calma; incluso los pasos pequeños construyen destinos grandes.</div>
+            <div class="mini"><strong>Fortaleza</strong>La luz no desaparece en la oscuridad; aprende a hacerse más visible.</div>
+            <div class="mini"><strong>Gratitud</strong>Celebrar la vida también es agradecer por quienes hacen el viaje más bonito.</div>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="footer">
+        Isamar, que este nuevo año te regale paz, alegría, amor sincero y muchas razones para sonreír. 💜
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const frases = [
+      'La vida no se mide solo por los años que pasan, sino por la luz que dejamos en las personas que nos rodean.',
+      'Cada cumpleaños es una pausa sagrada para mirar atrás con gratitud y mirar adelante con esperanza.',
+      'No eres solo lo que has vivido; también eres todo lo que aún puedes llegar a ser.',
+      'La felicidad no siempre grita; a veces aparece en los detalles simples que hacen eterno un momento.',
+      'Crecer no significa perder la magia, sino aprender a encontrarla en lugares nuevos.',
+      'Que tu corazón tenga la valentía de soñar y la paciencia de esperar lo que merece.',
+      'El tiempo no nos quita vida cuando lo usamos para amar, aprender y construir recuerdos.',
+      'La mejor victoria es seguir siendo una buena persona incluso después de las batallas difíciles.'
+    ];
+
+    let indice = 0;
+    let fiestaActiva = false;
+
+    function cambiarFrase() {
+      const quote = document.getElementById('quote');
+      quote.style.opacity = 0;
+
+      setTimeout(() => {
+        indice = (indice + 1) % frases.length;
+        quote.textContent = frases[indice];
+        quote.style.opacity = 1;
+      }, 220);
+    }
+
+    function puntoAleatorioDelBorde() {
+      const lado = Math.floor(Math.random() * 4);
+      const margen = 30;
+
+      if (lado === 0) return { x: Math.random() * window.innerWidth, y: -margen };
+      if (lado === 1) return { x: window.innerWidth + margen, y: Math.random() * window.innerHeight };
+      if (lado === 2) return { x: Math.random() * window.innerWidth, y: window.innerHeight + margen };
+      return { x: -margen, y: Math.random() * window.innerHeight };
+    }
+
+    function lanzarConfeti(x, y, cantidad = 35) {
+      const colors = ['#ffd166', '#ff2e4d', '#8b2cff', '#35d6ff', '#ffffff', '#ff8ad8'];
+
+      for (let i = 0; i < cantidad; i++) {
+        const p = document.createElement('span');
+        p.className = 'particle';
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        p.style.color = p.style.background;
+        p.style.width = (6 + Math.random() * 12) + 'px';
+        p.style.height = (8 + Math.random() * 18) + 'px';
+        p.style.borderRadius = Math.random() > .5 ? '50%' : '4px';
+        p.style.setProperty('--x', (Math.random() * 720 - 360) + 'px');
+        p.style.setProperty('--y', (Math.random() * 620 - 210) + 'px');
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 3000);
+      }
+    }
+
+    function lanzarEmojiJocoso() {
+      const emojis = ['🥳', '🎂', '🎉', '😂', '✨', '💜', '🍰', '🤪', '🎈', '👑'];
+      const inicio = puntoAleatorioDelBorde();
+      const e = document.createElement('span');
+      e.className = 'emoji-party';
+      e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      e.style.left = inicio.x + 'px';
+      e.style.top = inicio.y + 'px';
+      e.style.setProperty('--x', (Math.random() * window.innerWidth - inicio.x) + 'px');
+      e.style.setProperty('--y', (Math.random() * window.innerHeight - inicio.y) + 'px');
+      document.body.appendChild(e);
+      setTimeout(() => e.remove(), 3300);
+    }
+
+    function celebrar(event) {
+      const puntos = event
+        ? [{ x: event.clientX, y: event.clientY }]
+        : [
+            { x: window.innerWidth * .15, y: window.innerHeight * .18 },
+            { x: window.innerWidth * .85, y: window.innerHeight * .20 },
+            { x: window.innerWidth * .20, y: window.innerHeight * .82 },
+            { x: window.innerWidth * .80, y: window.innerHeight * .78 },
+            { x: window.innerWidth * .50, y: window.innerHeight * .45 }
+          ];
+
+      puntos.forEach((punto, index) => {
+        setTimeout(() => lanzarConfeti(punto.x, punto.y, 32), index * 160);
+      });
+
+      for (let i = 0; i < 6; i++) {
+        setTimeout(lanzarEmojiJocoso, i * 220);
+      }
+    }
+
+    function iniciarCelebracionJocosa() {
+      if (fiestaActiva) return;
+      fiestaActiva = true;
+
+      // Primera entrada exagerada apenas abren la página.
+      celebrar();
+
+      // Ráfagas desde diferentes lados cada pocos segundos.
+      setInterval(() => {
+        const punto = puntoAleatorioDelBorde();
+        lanzarConfeti(punto.x, punto.y, 28);
+      }, 1200);
+
+      // Emojis graciosos cruzando la pantalla.
+      setInterval(lanzarEmojiJocoso, 900);
+
+      // Cada cierto tiempo vuelve una mini explosión completa.
+      setInterval(celebrar, 5200);
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(iniciarCelebracionJocosa, 450);
+      setInterval(cambiarFrase, 5200);
+    });
+  </script>
+</body>
+</html>
