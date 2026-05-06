@@ -180,6 +180,9 @@ h1 {
   line-height: .96;
   text-transform: uppercase;
   letter-spacing: 3px;
+  max-width: 100%;
+  overflow-wrap: normal;
+  text-wrap: balance;
   color: #fff;
   text-shadow:
     4px 4px 0 rgba(255,46,77,.50),
@@ -189,6 +192,7 @@ h1 {
 h1 span {
   display: block;
   color: var(--gold);
+  max-width: 100%;
   text-shadow:
     4px 4px 0 rgba(139,44,255,.52),
     0 0 28px rgba(255,209,102,.75);
@@ -199,6 +203,8 @@ h1 span {
   font-size: clamp(15.5px, 2.5vw, 21px);
   line-height: 1.7;
   color: #f7efff;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .main-message strong {
@@ -243,6 +249,8 @@ h1 span {
   line-height: 1.65;
   color: #fff;
   transition: opacity .25s ease;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .controls {
@@ -500,6 +508,8 @@ button.alt {
   .poster {
     border-radius: 22px;
     min-height: auto;
+    width: 100%;
+    overflow: hidden;
   }
 
   .poster-header {
@@ -526,17 +536,25 @@ button.alt {
   }
 
   h1 {
-    font-size: clamp(39px, 13vw, 62px);
-    line-height: .98;
-    letter-spacing: 1.5px;
+    font-size: clamp(34px, 10.5vw, 46px);
+    line-height: 1.02;
+    letter-spacing: .5px;
     text-shadow:
       3px 3px 0 rgba(255,46,77,.48),
       0 0 20px rgba(139,44,255,.75);
   }
 
   .main-message {
-    font-size: 15.5px;
+    font-size: 15px;
     line-height: 1.62;
+    text-align: center;
+    padding-inline: 2px;
+  }
+
+  h1 span {
+    font-size: .78em;
+    letter-spacing: 0;
+    white-space: nowrap;
   }
 
   .philosophy-box {
@@ -627,7 +645,11 @@ button.alt {
   }
 
   h1 {
-    font-size: 38px;
+    font-size: 33px;
+  }
+
+  h1 span {
+    font-size: .76em;
   }
 
   .circle-stage {
@@ -787,17 +809,4 @@ button.alt {
           ];
 
       puntos.forEach((punto, index) => {
-        setTimeout(() => lanzarConfeti(punto.x, punto.y, 32), index * 160);
-      });
-
-      const totalEmojis = window.innerWidth <= 560 ? 3 : 6;
-      for (let i = 0; i < totalEmojis; i++) {
-        setTimeout(lanzarEmojiJocoso, i * 220);
-      }
-    }
-
-    function iniciarCelebracionJocosa() {
-      if (fiestaActiva) return;
-      fiestaActiva = true;
-
-      // Primera entrada exagerada apenas
+    
