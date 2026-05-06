@@ -402,56 +402,72 @@ button.alt {
   background: rgba(0,0,0,.20);
 }
 
-.particle {
+.sakura-petal {
   position: fixed;
+  top: -40px;
   pointer-events: none;
-  width: 10px;
-  height: 16px;
-  border-radius: 4px;
-  background: var(--gold);
-  box-shadow: 0 0 14px currentColor;
-  animation: crazyFall 2.8s ease-out forwards;
-  z-index: 99;
-}
-
-.emoji-party {
-  position: fixed;
-  pointer-events: none;
-  font-size: clamp(24px, 4vw, 46px);
   z-index: 100;
-  animation: emojiBounce 3.2s ease-in-out forwards;
-  filter: drop-shadow(0 0 12px rgba(255,255,255,.45));
+  font-size: var(--size);
+  opacity: .92;
+  filter: drop-shadow(0 0 8px rgba(255, 170, 220, .55));
+  animation: sakuraFall var(--duration) linear forwards;
+  will-change: transform, opacity;
 }
 
-@keyframes crazyFall {
+.sakura-petal::before {
+  content: "🌸";
+}
+
+.sakura-leaf::before {
+  content: "🌺";
+}
+
+.sakura-light::before {
+  content: "❀";
+  color: #ffd6ea;
+  text-shadow: 0 0 10px rgba(255, 180, 220, .9);
+}
+
+.sakura-burst {
+  position: fixed;
+  pointer-events: none;
+  z-index: 101;
+  font-size: var(--size);
+  animation: sakuraBurst 1.8s ease-out forwards;
+  filter: drop-shadow(0 0 10px rgba(255, 210, 235, .75));
+}
+
+.sakura-burst::before {
+  content: "🌸";
+}
+
+@keyframes sakuraFall {
   0% {
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    opacity: 1;
+    transform: translate3d(0, -40px, 0) rotate(0deg) scale(.85);
+    opacity: 0;
+  }
+  8% {
+    opacity: .95;
   }
   45% {
-    transform: translate(calc(var(--x) * .55), calc(var(--y) * .55)) rotate(360deg) scale(1.25);
-    opacity: 1;
+    transform: translate3d(calc(var(--drift) * .45), 45vh, 0) rotate(220deg) scale(1.05);
   }
   100% {
-    transform: translate(var(--x), var(--y)) rotate(900deg) scale(.2);
+    transform: translate3d(var(--drift), 110vh, 0) rotate(540deg) scale(.75);
     opacity: 0;
   }
 }
 
-@keyframes emojiBounce {
+@keyframes sakuraBurst {
   0% {
-    transform: translate(0, 0) rotate(0deg) scale(.7);
-    opacity: 0;
-  }
-  15% {
+    transform: translate(0, 0) rotate(0deg) scale(.6);
     opacity: 1;
-    transform: translate(0, -30px) rotate(-10deg) scale(1.1);
   }
-  55% {
-    transform: translate(var(--x), calc(var(--y) * .55)) rotate(18deg) scale(1.2);
+  70% {
+    opacity: .95;
   }
   100% {
-    transform: translate(var(--x), var(--y)) rotate(-25deg) scale(.4);
+    transform: translate(var(--x), var(--y)) rotate(420deg) scale(.2);
     opacity: 0;
   }
 }
@@ -693,7 +709,7 @@ button.alt {
 
       <div class="controls">
         <button onclick="cambiarFrase()">Cambiar frase ✨</button>
-        <button class="alt" onclick="celebrar(event)">Celebrar ahora 🎉</button>
+        <button class="alt" onclick="celebrar(event)">Lluvia de cerezos 🌸</button>
       </div>
     </section>
 
@@ -727,8 +743,8 @@ button.alt {
     const frases = [
       'Ser tú misma no es empezar de cero; es volver al lugar donde tu alma siempre supo que merecía estar.',
       'Tu luz merece crecer con calma, sin prisa y sin miedo.',
-      'A veces la vida nos rompe una versión antigua para permitirnos abrazar una versión más libre.',
-      'El amor propio no llega de golpe; se construye cada día cuando decides tratarte con ternura.',
+      'A veces la vida nos mueve para recordarnos que también merecemos paz.',
+      'El amor propio no llega de golpe; se construye cada día con pequeños actos de ternura.',
       'Volver a sonreír después de una etapa difícil también es una forma silenciosa de valentía.',
       'Tu historia no termina donde dolió; también empieza donde decidiste volver a elegirte.',
       'Que este año no te pida esconderte, sino florecer con calma, fuerza y dignidad.',
@@ -738,75 +754,91 @@ button.alt {
     ];
 
     let indice = 0;
-    let fiestaActiva = false;
+    let lluviaActiva = false;
+    let intervaloLluvia = null;
+    let intervaloFrases = null;
 
     function cambiarFrase() {
       const quote = document.getElementById('quote');
-      quote.style.opacity = 0;
+      if (!quote) return;
+
+      quote.style.opacity = '0';
 
       setTimeout(() => {
         indice = (indice + 1) % frases.length;
         quote.textContent = frases[indice];
-        quote.style.opacity = 1;
-      }, 220);
+        quote.style.opacity = '1';
+      }, 260);
     }
 
-    function puntoAleatorioDelBorde() {
-      const lado = Math.floor(Math.random() * 4);
-      const margen = 30;
-
-      if (lado === 0) return { x: Math.random() * window.innerWidth, y: -margen };
-      if (lado === 1) return { x: window.innerWidth + margen, y: Math.random() * window.innerHeight };
-      if (lado === 2) return { x: Math.random() * window.innerWidth, y: window.innerHeight + margen };
-      return { x: -margen, y: Math.random() * window.innerHeight };
-    }
-
-    function lanzarConfeti(x, y, cantidad = 35) {
-      const colors = ['#ffd166', '#ff2e4d', '#8b2cff', '#35d6ff', '#ffffff', '#ff8ad8'];
+    function crearPetalo() {
+      const petalo = document.createElement('span');
+      const tipos = ['sakura-petal', 'sakura-petal sakura-light', 'sakura-petal sakura-leaf'];
       const esMovil = window.innerWidth <= 560;
-      cantidad = esMovil ? Math.min(cantidad, 18) : cantidad;
 
-      for (let i = 0; i < cantidad; i++) {
-        const p = document.createElement('span');
-        p.className = 'particle';
-        p.style.left = x + 'px';
-        p.style.top = y + 'px';
-        p.style.background = colors[Math.floor(Math.random() * colors.length)];
-        p.style.color = p.style.background;
-        p.style.width = (6 + Math.random() * 12) + 'px';
-        p.style.height = (8 + Math.random() * 18) + 'px';
-        p.style.borderRadius = Math.random() > .5 ? '50%' : '4px';
-        p.style.setProperty('--x', (Math.random() * (window.innerWidth <= 560 ? 420 : 720) - (window.innerWidth <= 560 ? 210 : 360)) + 'px');
-        p.style.setProperty('--y', (Math.random() * (window.innerWidth <= 560 ? 460 : 620) - (window.innerWidth <= 560 ? 160 : 210)) + 'px');
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 3000);
-      }
+      petalo.className = tipos[Math.floor(Math.random() * tipos.length)];
+      petalo.style.left = Math.random() * 100 + 'vw';
+      petalo.style.setProperty('--size', (esMovil ? 18 + Math.random() * 12 : 18 + Math.random() * 18) + 'px');
+      petalo.style.setProperty('--duration', (esMovil ? 6 + Math.random() * 4 : 7 + Math.random() * 5) + 's');
+      petalo.style.setProperty('--drift', (Math.random() * 240 - 120) + 'px');
+      petalo.style.animationDelay = Math.random() * .8 + 's';
+
+      document.body.appendChild(petalo);
+      setTimeout(() => petalo.remove(), 12500);
     }
 
-    function lanzarEmojiJocoso() {
-      const emojis = ['🥳', '🎂', '🎉', '😂', '✨', '💜', '🍰', '🤪', '🎈', '👑'];
-      const inicio = puntoAleatorioDelBorde();
-      const e = document.createElement('span');
-      e.className = 'emoji-party';
-      e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      e.style.left = inicio.x + 'px';
-      e.style.top = inicio.y + 'px';
-      e.style.setProperty('--x', (Math.random() * window.innerWidth - inicio.x) + 'px');
-      e.style.setProperty('--y', (Math.random() * window.innerHeight - inicio.y) + 'px');
-      document.body.appendChild(e);
-      setTimeout(() => e.remove(), 3300);
+    function iniciarLluviaCerezos() {
+      if (lluviaActiva) return;
+      lluviaActiva = true;
+
+      const esMovil = window.innerWidth <= 560;
+      const cantidadInicial = esMovil ? 28 : 52;
+      const velocidad = esMovil ? 420 : 260;
+
+      for (let i = 0; i < cantidadInicial; i++) {
+        setTimeout(crearPetalo, i * 90);
+      }
+
+      intervaloLluvia = setInterval(crearPetalo, velocidad);
     }
 
     function celebrar(event) {
-      const puntos = event
-        ? [{ x: event.clientX, y: event.clientY }]
-        : [
-            { x: window.innerWidth * .15, y: window.innerHeight * .18 },
-            { x: window.innerWidth * .85, y: window.innerHeight * .20 },
-            { x: window.innerWidth * .20, y: window.innerHeight * .82 },
-            { x: window.innerWidth * .80, y: window.innerHeight * .78 },
-            { x: window.innerWidth * .50, y: window.innerHeight * .45 }
-          ];
+      const x = event ? event.clientX : window.innerWidth / 2;
+      const y = event ? event.clientY : window.innerHeight / 2;
+      const total = window.innerWidth <= 560 ? 28 : 48;
 
-      puntos.forEach((punto, index) => {
-    
+      for (let i = 0; i < total; i++) {
+        const flor = document.createElement('span');
+        flor.className = 'sakura-burst';
+        flor.style.left = x + 'px';
+        flor.style.top = y + 'px';
+        flor.style.setProperty('--size', (18 + Math.random() * 20) + 'px');
+        flor.style.setProperty('--x', (Math.random() * 520 - 260) + 'px');
+        flor.style.setProperty('--y', (Math.random() * 420 - 260) + 'px');
+        document.body.appendChild(flor);
+        setTimeout(() => flor.remove(), 2000);
+      }
+
+      for (let i = 0; i < 12; i++) {
+        setTimeout(crearPetalo, i * 80);
+      }
+    }
+
+    function iniciarFrases() {
+      if (intervaloFrases) clearInterval(intervaloFrases);
+
+      const quote = document.getElementById('quote');
+      if (quote) quote.textContent = frases[indice];
+
+      setTimeout(cambiarFrase, 1800);
+      intervaloFrases = setInterval(cambiarFrase, 5000);
+    }
+
+    function iniciarTodo() {
+      iniciarLluviaCerezos();
+      iniciarFrases();
+      setTimeout(() => celebrar(), 700);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', iniciarTo
